@@ -1,4 +1,4 @@
-package main
+package checkcs
 
 type Service struct {
 	Project string

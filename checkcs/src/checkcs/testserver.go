@@ -1,4 +1,4 @@
-package main
+package checkcs
 
 // {
 //   "code": 0,
@@ -19,16 +19,13 @@ import (
 	"log"
 )
 
-func main() {
-	http.HandleFunc("/", handler)
-	http.HandleFunc("/okcheck", okcheckhandler)
-	http.HandleFunc("/failedcheck", failedcheckhandler)
+func Startserver() {
+	http.HandleFunc("/okcheck", okhandler)
+	http.HandleFunc("/failedcheck", failedhandler)
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
-
-
 }
 
-func handler(w http.ResponseWriter, r *http.Request) {
+func okhandler(w http.ResponseWriter, r *http.Request) {
 	services := make([]Service,2,10)
 
 	simpleservice := Service{
@@ -54,6 +51,6 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	w.Write(b)
 }
 
-func checkhandler(w http.ResponseWriter, r *http.Request) {
+func failedhandler(w http.ResponseWriter, r *http.Request) {
 
 }

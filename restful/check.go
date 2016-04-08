@@ -1,18 +1,18 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
 )
 
-type Service struct {
-	Project     string
-	Application string
-	Lane        string
-	CIID        int
+func flags() {
+	flag.Bool("server", false, "start the test server")
+	flag.Parse()
 }
+
 
 func main() {
 	url := "http://localhost:8000"

@@ -7,16 +7,13 @@ import (
 	"log"
 )
 
-type Service struct {
-	Project string
-	Application string
-	Lane string
-	CIID int
-}
-
 func main() {
 	http.HandleFunc("/", handler)
+	http.HandleFunc("/okcheck", okcheckhandler)
+	http.HandleFunc("/failedcheck", failedcheckhandler)
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
+
+
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -43,4 +40,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(b)
+}
+
+func checkhandler(w http.ResponseWriter, r *http.Request) {
+
 }

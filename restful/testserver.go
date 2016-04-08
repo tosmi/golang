@@ -1,5 +1,17 @@
 package main
 
+// {
+//   "code": 0,
+//   "status": "OK"
+// }
+
+// {
+//   "code": 3,
+//   "status": "UNKNOWN",
+//   "message": "[rc-notfound] No replication controllers found!"
+// }
+
+
 import (
 	"encoding/json"
 	"fmt"

@@ -20,30 +20,18 @@ import (
 )
 
 func Startserver() {
-	http.HandleFunc("/okcheck", okhandler)
-	http.HandleFunc("/failedcheck", failedhandler)
+	http.HandleFunc("/ok", okhandler)
+	http.HandleFunc("/failed", failedhandler)
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
 
 func okhandler(w http.ResponseWriter, r *http.Request) {
-	services := make([]Service,2,10)
+	okcheck := Check{
+		Code: 0,
+		Status: "OK",
+	}
 
-	simpleservice := Service{
-		Project: "Project1",
-		Application: "App1",
-		Lane: "stable",
-		CIID: 54321}
-
-	anotherservice := Service{
-		Project: "Project2",
-		Application: "App2",
-		Lane: "stable",
-		CIID: 54322}
-
-	services[0] = simpleservice
-	services[1] = anotherservice
-
-	b, err := json.Marshal(services)
+	b, err := json.Marshal(okcheck)
 	if err != nil {
 		fmt.Println("error: ", err)
 	}
@@ -52,5 +40,16 @@ func okhandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func failedhandler(w http.ResponseWriter, r *http.Request) {
+	failedcheck := Check{
+		Code: 3,
+		Status: "UNKNOWN",
+		Message: "[rc-notfound] No replication controllers found!",
+	}
 
+	b, err := json.Marshal(failedcheck)
+	if err != nil {
+		fmt.Println("error: ", err)
+	}
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(b)
 }

@@ -23,3 +23,5 @@ _testmain.go
 *.test
 *.prof
 /checkcs/checkcs
+/tgpl/ch1/lissajous
+/tgpl/ch1/server5

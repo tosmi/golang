@@ -29,7 +29,7 @@ func main() {
 	http.HandleFunc("/", handler)
 	http.HandleFunc("/count", counter)
 	http.HandleFunc("/lissajous", func(w http.ResponseWriter, r *http.Request) {
-		lissajous(w)
+		lissajous(w, r)
 	})
 	log.Fatal(http.ListenAndServe("localhost:8000", nil))
 }
@@ -59,14 +59,21 @@ func counter(w http.ResponseWriter, r *http.Request) {
 }
 
 func lissajous(out io.Writer, r *http.Request) {
-	var cycles = 5
+	var cycles = 5.0
+	var err error
 
-	if r.Form['cycles'] {
-		cycles = strconv
+	if err := r.ParseForm(); err != nil {
+		log.Print(err)
 	}
 
+	if acycles := r.Form["cycles"]; len(acycles) != 0 {
+		cycles, err = strconv.ParseFloat(acycles[0], 64)
+		if err != nil {
+			
+		}
+	} 
+
 	const (
-		cycles  = 5
 		res     = 0.01
 		size    = 100
 		nframes = 64

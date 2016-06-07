@@ -7,7 +7,7 @@ import 	(
 
 var pc [256]byte
 
-const debug = true
+const debug = false
 
 func init() {
 	for i := range pc {
@@ -17,6 +17,7 @@ func init() {
 		}
 	}
 }
+
 
 func Popcount(x uint64) int {
 	if debug {

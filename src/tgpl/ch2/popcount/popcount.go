@@ -18,6 +18,14 @@ func init() {
 	}
 }
 
+func PopcountLoop(x uint64) int {
+	var sum int = 0
+	var i uint 
+	for i = 0; i < 8; i++ {
+		sum += int(pc[byte(x>>(i*8))])
+	}
+	return sum
+}
 
 func Popcount(x uint64) int {
 	if debug {

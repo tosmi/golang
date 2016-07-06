@@ -19,10 +19,15 @@ func init() {
 }
 
 func PopcountClear(x uint64) int {
-	fmt.Printf("%v: %v\n", strconv.FormatInt(int64(x),2), x)
-	fmt.Printf("%v: %v\n", strconv.FormatInt(int64(x&(x-1)),2), x&(x-1))
-
-	return 0
+	y := x
+	var i int
+	for i = 0; i < 64; i++ {
+		y=y&(y-1)
+		if y == 0 {
+			break
+		}
+	}
+	return i+1
 }
 
 func PopcountShift(x uint64) int {

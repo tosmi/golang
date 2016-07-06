@@ -25,9 +25,18 @@ func BenchmarkPopcountLoop(b *testing.B) {
 	}
 }
 
+func BenchmarkPopcountClear(b *testing.B) {
+	//fmt.Printf("Without Loop %v\n", b.N)
+	for i := 0; i <= b.N; i++ {
+		PopcountClear(983745)
+	}
+}
+
+
 func BenchmarkPopcountWithoutLoop(b *testing.B) {
 	//fmt.Printf("Without Loop %v\n", b.N)
 	for i := 0; i <= b.N; i++ {
 		Popcount(983745)
 	}
 }
+

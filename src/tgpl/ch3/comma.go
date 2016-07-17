@@ -18,34 +18,21 @@ func commaRecursive(s string) string {
 func commaNonRecursive(s string) string {
 	var buf bytes.Buffer
 	// 38,388,293
-
-
+	
 	n := len(s)
-
-	fmt.Printf("mod %v\n", n%3)	
 	if n <= 3 {
 		return s
 	}
 
-	i := 0
-	for c := n-1; c >= 0; c-- {
-
-		
-		if c >= 3 {
-			buf.WriteByte(s[c])
-			i++
-		} else {
-			buf.WriteByte(s[c])
-		}
-
-		if i > 2 {
-			buf.WriteString(",")
-			i = 0
-		}
+	start := n % 3
+	if start > 0 {
+		buf.WriteString(s[0:start] + ",")
 	}
-	fmt.Printf("after comma [%v]\n", buf.String())
-	r := revert(buf.String())
-	return r
+
+	for i := 0; i < len(s[start:]); i+=3 {
+		buf.WriteString(s[i:i+3]+",")
+	}
+	return buf.String()[]
 }
 
 func revert(s string) string {

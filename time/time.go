@@ -3,11 +3,22 @@ package main
 import (
 	"time"
 	"fmt"
-	"os"
+	"log"
 )
 
-func run() {
-	fmt.Println("called run")
+func doit() {
+
+	fmt.Println("do stuff")
+
+
+
+}
+
+func schedule() {
+	fmt.Println("in schedule")
+
+	doit()
+
 
 }
 
@@ -16,15 +27,16 @@ func run() {
 // main
 func main()  {
 	const layout = "2006.01.02 15:04"
-	const start = "2016.11.03 17:18"
-	const interval = "2"
+	const start = "2016.11.04 07:50"
+	const interval = "2s"
 
 	loc, _ := time.LoadLocation("Europe/Vienna")
 
 	t,err := time.ParseInLocation(layout, start, loc); if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
+		log.Fatal(err)
 	}
+
+	duration := time.ParseDuration(interval)
 
 	if t.Before(time.Now()) {
 		fmt.Println("Schedule start is before now!")
@@ -36,6 +48,10 @@ func main()  {
 	time.AfterFunc(d, func() {
 		fmt.Println("expired")
 	})
+
+	dc := make(chan time.Duration)
+	time.AfterFunc(d, schedule)
+
 
 	fmt.Println(t)
 	fmt.Println(t.Sub(time.Now()))
